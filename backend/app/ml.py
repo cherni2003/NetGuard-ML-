@@ -1,4 +1,4 @@
-﻿import os
+import os
 import pickle
 import numpy as np
 import tensorflow as tf
@@ -41,9 +41,9 @@ class AnomalyDetector:
         with open(os.path.join(self.models_dir, 'lstm_scaler.pkl'), 'rb') as f:
             self.scaler = pickle.load(f)
             
-        # Load MCD Models
-        with open(os.path.join(self.models_dir, 'mcd_models.pkl'), 'rb') as f:
-            self.mcd_models = pickle.load(f)
+        import joblib
+        # Load MCD Models using joblib (as it was likely saved with compression/joblib)
+        self.mcd_models = joblib.load(os.path.join(self.models_dir, 'mcd_models.pkl'))
             
         # Load Results (for threshold and metric stats)
         with open(os.path.join(self.models_dir, 'lstm_results.pkl'), 'rb') as f:
